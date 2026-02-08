@@ -28,7 +28,11 @@ int main(int argc, char **argv) {
   end = clock();
 
   // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
-  printf("Row Major: sum = %lf and Clock Ticks are %ld\n", sum, (double) end-start);
+  printf("Row Major: sum = %lf and Clock Ticks are %ld\n", sum, (long)(end-start));
+
+  sum = 0;
+
+  start = clock();
 
   //ADD YOUR COLUMN MAJOR WORK
   // YOU'LL NEED TO TIME IT
@@ -39,7 +43,7 @@ int main(int argc, char **argv) {
   end = clock();
 
   // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
-  printf("Column Major: sum = %lf and Clock Ticks are %ld\n", sum, (double) end-start);
+  printf("Column Major: sum = %lf and Clock Ticks are %ld\n", sum, (long)(end-start));
 
   // Free Memory
   free(arr);
