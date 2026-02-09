@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv) {
   int i,j;
-  int n = 128;
+  int n = 512;
   double sum;
   clock_t end, start;
   double *arr = malloc(n*n*sizeof(double));

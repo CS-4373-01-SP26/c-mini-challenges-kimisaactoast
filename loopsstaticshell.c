@@ -5,10 +5,10 @@
 
 int main(int argc, char **argv) {
   int i,j;
-  int n = 128;
+  int n = 2048;
   double sum;
   clock_t end, start;
-  double arr[128][128];
+  double arr[n][n];
   
   // THIS FILLS THE MATRIX WITH NUMBERS
   for (i=0; i<n; i++)
