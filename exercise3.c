@@ -9,8 +9,13 @@ integer values. The next line contains the length of the vector. The next line c
 #include <time.h>
 #include <stdlib.h>
 
+double get_time_diff(struct timespec start, struct timespec end) {
+    return (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+}
+
 int main() {
-    
+    struct timespec start, end;
+
     // opening file
     FILE *file = fopen("mv.txt", "r");
     if (!file) {
@@ -43,6 +48,20 @@ int main() {
     int vectorLength;
     fscanf(file, "%d", &vectorLength);
 
+    // safety check
+    if (numcols != vectorLength) {
+        printf("Error: matrix columns (%d) must match vector length (%d)\n", numcols, vectorLength);
+
+        for (int i = 0; i < numrows; i++) {
+            free(matrix[i]);
+        }
+        free(matrix);
+
+        fclose(file);
+
+        return 1;
+    }
+
     // -- 4. reading vector values --
     
     // allocate memory for vector 
@@ -62,7 +81,7 @@ int main() {
         result[i] = 0;
     }
 
-    clock_t start = clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     for(int i = 0; i < numrows; i++) {
         for(int j = 0; j < numcols; j++){
@@ -70,7 +89,7 @@ int main() {
         }
     }
 
-    clock_t end = clock();
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
     // printing results
     printf("Result Vector: ");
@@ -78,7 +97,7 @@ int main() {
         printf("%d ", result[i]);
     }
 
-    printf("\nTime Taken: %f s\n", (double)(end - start) / CLOCKS_PER_SEC); 
+    printf("\nTime Taken: %.9f s\n", get_time_diff(start, end)); 
 
     // free memory
     for (int i = 0; i < numrows; i++) {
